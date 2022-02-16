@@ -1,15 +1,8 @@
-import {
-  MenuIcon,
-  PlusIcon,
-  SearchIcon,
-  ShoppingBagIcon,
-  XIcon,
-} from "@heroicons/react/outline";
-import { Dialog, Popover, Tab, Transition } from "@headlessui/react";
-import { useState, Fragment } from "react";
-import { Link, Form } from "remix";
-import { product } from "ramda";
-import ShoppingCart from "./ShoppingCart";
+import { ShoppingBagIcon } from "@heroicons/react/outline";
+import { Popover, Transition } from "@headlessui/react";
+import { Fragment } from "react";
+import { Link } from "remix";
+import ShoppingCart from "./ShoppingCartPopover";
 
 const navigation = [
   { name: "Camping", href: "/categories/camping/products" },
@@ -57,7 +50,33 @@ const Header = ({ products }) => {
               >
                 Sign Up
               </Link>
-              {/* TODO Cart */}
+              <Popover className="ml-4 flow-root text-sm lg:relative lg:ml-8">
+                <Popover.Button className="group -m-2 p-2 flex items-center">
+                  <ShoppingBagIcon
+                    className="flex-shrink-0 h-6 w-6 text-gray-400 group-hover:text-gray-500"
+                    aria-hidden="true"
+                  />
+                  <span className="ml-2 text-sm font-medium text-gray-700 group-hover:text-gray-800">
+                    {products?.length}
+                  </span>
+                  <span className="sr-only">items in cart, view bag</span>
+                </Popover.Button>
+                <Transition
+                  as={Fragment}
+                  enter="transition ease-out duration-200"
+                  enterFrom="opacity-0"
+                  enterTo="opacity-100"
+                  leave="transition ease-in duration-150"
+                  leaveFrom="opacity-100"
+                  leaveTo="opacity-0"
+                >
+                  <Popover.Panel className="z-10 absolute top-16 inset-x-0 mt-px pb-6 bg-white shadow-lg sm:px-2 lg:top-full lg:left-auto lg:right-0 lg:mt-3 lg:-mr-1.5 lg:w-80 lg:rounded-lg lg:ring-1 lg:ring-black lg:ring-opacity-5">
+                    {({ close }) => (
+                      <ShoppingCart products={products} close={close} />
+                    )}
+                  </Popover.Panel>
+                </Transition>
+              </Popover>
             </div>
           </div>
         </div>
