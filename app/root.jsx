@@ -11,7 +11,7 @@ import {
 } from "remix";
 import { NhostClient } from "@nhost/nhost-js";
 import { NhostAuthProvider } from "@nhost/react-auth";
-import styles from "./styles/app.css";
+import styles from "./tailwind.css";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
 import { getSession } from "~/utils/session.server";
