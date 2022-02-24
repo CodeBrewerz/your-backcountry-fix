@@ -30,3 +30,12 @@ export const Favourite_Products_Images_Query = gql`
     }
   }
 `;
+
+export const Categories_Query = gql`
+  {
+    categories: Category {
+      name
+      url
+    }
+  }
+`;
