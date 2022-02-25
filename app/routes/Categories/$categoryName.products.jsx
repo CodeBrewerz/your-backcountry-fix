@@ -140,18 +140,36 @@ export default function CategoryNameRoute() {
               </p>
             </div>
           </div>
-          <section aria-labelledby="filter-heading">
-            <h2 id="filter-heading" className="sr-only">
-              Filters
-            </h2>
 
-            <FilterMenuSection
-              filters={filters}
-              setMobileFiltersOpen={setMobileFiltersOpen}
-            />
-            <ActiveFilterSection activeFilters={activeFilters} />
-          </section>
-          <ProductGrid products={products} />
+          {products.length > 0 ? (
+            <>
+              <section aria-labelledby="filter-heading">
+                <h2 id="filter-heading" className="sr-only">
+                  Filters
+                </h2>
+
+                <FilterMenuSection
+                  filters={filters}
+                  setMobileFiltersOpen={setMobileFiltersOpen}
+                />
+                <ActiveFilterSection activeFilters={activeFilters} />
+              </section>
+              <ProductGrid products={products} />
+            </>
+          ) : (
+            <>
+              <img
+                src="https://images.unsplash.com/photo-1624023751140-ba1f3c423f07?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTJ8fHNoaXBwaW5nfGVufDB8fDB8fA%3D%3D&auto=format&fit=crop&w=700&q=60"
+                alt="No products found"
+                className="object-center h-96 w-full object-cover opacity-70"
+              />
+
+              <div className="relative bottom-60 text-center p-5 text-2xl font-bold">
+                We will be adding more products very soon, until then please
+                check out our other products.
+              </div>
+            </>
+          )}
         </main>
       </div>
     </div>

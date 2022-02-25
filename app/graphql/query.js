@@ -1,4 +1,6 @@
 import { gql } from "graphql-request";
+import { intercalate } from "../utils/helper-functions";
+const R = require("ramda");
 
 export const Catogory_Images_Query = gql`
   {
@@ -237,7 +239,6 @@ export const Related_Products = {
   }),
 };
 
-
 export const getAllFeatures = gql`
   query features {
     Feature {
@@ -331,42 +332,14 @@ export const getAllFeatureValues = gql`
   }
 `;
 
-export const Products_By_Category_Name = {
-  q: gql`
-    query Products_By_Category_Name($categoryName: String!) {
-      Product(
-        where: {
-          product_categories_one_to_many: {
-            Category: { name: { _eq: $categoryName } }
-          }
-        }
-      ) {
-        Price
-        Name
-        product_images(limit: 1) {
-          url
-        }
-        ProductFeatures {
-          Feature {
-            Name
-          }
-          ProductFeatureValues {
-            FeatureValue {
-              value
-            }
-          }
-        }
-      }
+export const getAllProductCategories = gql`
+  query categories {
+    Category {
+      name
+      id
     }
-  `,
-  mapper: (product, idx) => ({
-    id: idx,
-    name: product?.Name,
-    href: "products/" + intercalate(product?.Name),
-    price: product?.Price,
-    imageSrc: product?.product_images[0]?.url,
-  }),
-};
+  }
+`;
 
 export const productMapper = (product, idx) => ({
   id: idx,
