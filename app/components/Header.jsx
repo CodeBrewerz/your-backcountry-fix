@@ -14,7 +14,6 @@ const navigation = [
 
 const Header = ({ products }) => {
   const res = useNhostAuth();
-  console.log(res, "user");
 
   return (
     <header className="relative bg-white">

@@ -17,7 +17,6 @@ import {
 export async function action({ request }) {
   const formData = await request.formData();
 
-  console.log(formData, [...formData.entries()], "formData");
   const endpoint = "https://ilomfyseqqwhpqpspjrv.nhost.run/v1/graphql";
   const client = new GraphQLClient(endpoint);
 

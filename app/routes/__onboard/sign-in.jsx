@@ -39,7 +39,6 @@ export const action = async ({ request }) => {
     backendUrl: "https://ilomfyseqqwhpqpspjrv.nhost.run",
   });
 
-  console.log(email, password);
   const res = await nhost.auth.signIn({
     email,
     password,

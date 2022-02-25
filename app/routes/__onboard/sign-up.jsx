@@ -49,8 +49,6 @@ export const action = async ({ request }) => {
     },
   });
 
-  console.log(res, "res");
-
   if (res.error)
     return json({ errorMessage: res.error.message }, { status: 401 });
   else {

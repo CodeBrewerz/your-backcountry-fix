@@ -83,7 +83,6 @@ export const loader = async ({ params, request }) => {
       productFilters.Product,
       new Map()
     );
-    console.log("filters", JSON.stringify(filters));
 
     return {
       products: results.Product.map((value, idx) =>
