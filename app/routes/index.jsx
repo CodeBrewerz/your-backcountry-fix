@@ -54,7 +54,7 @@ export default function Index() {
           category_two={categorySectionInfo[1]}
           category_three={categorySectionInfo[2]}
         />
-        <FeatureSection />
+        {/* <FeatureSection /> */}
         <FavoriteSection favoriteProductInfo={favoriteProductInfo} />
         <CTASection />
       </main>

@@ -1,10 +1,18 @@
 import { useNhostAuth } from "@nhost/react-auth";
 import { useEffect } from "react";
-import { Form, json, redirect, useActionData, useTransition } from "remix";
+import {
+  Form,
+  json,
+  Outlet,
+  redirect,
+  useActionData,
+  useTransition,
+} from "remix";
 import { NhostClient } from "@nhost/nhost-js";
 import { ExclamationCircleIcon } from "@heroicons/react/outline";
 import classNames from "classnames";
 import { getSession } from "~/utils/session.server";
+import Tabs from "~/components/Tabs";
 
 function validatePassword(password) {
   if (typeof password !== "string" || password.length < 6) {
@@ -12,57 +20,57 @@ function validatePassword(password) {
   }
 }
 
-export const action = async ({ request }) => {
-  let session = await getSession(request);
+// export const action = async ({ request }) => {
+//   let session = await getSession(request);
 
-  const form = await request.formData();
-  const email = form.get("email");
-  const password = form.get("password");
+//   const form = await request.formData();
+//   const email = form.get("email");
+//   const password = form.get("password");
 
-  if (typeof email !== "string" || typeof password !== "string") {
-    return json(
-      {
-        errorMessage: `Form not submitted correctly, try again`,
-      },
-      { status: 400 }
-    );
-  }
+//   if (typeof email !== "string" || typeof password !== "string") {
+//     return json(
+//       {
+//         errorMessage: `Form not submitted correctly, try again`,
+//       },
+//       { status: 400 }
+//     );
+//   }
 
-  if (validatePassword(password))
-    return json(
-      {
-        errorMessage: `Passwords must be at least 6 characters long`,
-      },
-      { status: 400 }
-    );
+//   if (validatePassword(password))
+//     return json(
+//       {
+//         errorMessage: `Passwords must be at least 6 characters long`,
+//       },
+//       { status: 400 }
+//     );
 
-  const nhost = new NhostClient({
-    backendUrl: "https://ilomfyseqqwhpqpspjrv.nhost.run",
-  });
+//   const nhost = new NhostClient({
+//     backendUrl: "https://ilomfyseqqwhpqpspjrv.nhost.run",
+//   });
 
-  const res = await nhost.auth.signIn({
-    email,
-    password,
-  });
+//   const res = await nhost.auth.signIn({
+//     email,
+//     password,
+//   });
 
-  nhost.graphql.setAccessToken(res.session.accessToken);
+//   nhost.graphql.setAccessToken(res.session.accessToken);
 
-  if (res.error)
-    return json({ errorMessage: res.error.message }, { status: 401 });
-  else {
-    session.setAccessToken(res.session.accessToken);
+//   if (res.error)
+//     return json({ errorMessage: res.error.message }, { status: 401 });
+//   else {
+//     session.setAccessToken(res.session.accessToken);
 
-    return redirect("/", {
-      headers: {
-        "Set-Cookie": await session.commitSession(),
-      },
-    });
-  }
-};
+//     return redirect("/", {
+//       headers: {
+//         "Set-Cookie": await session.commitSession(),
+//       },
+//     });
+//   }
+// };
 
-export default function SignIn() {
+export default function OnBoardLayout() {
   const { isLoading, isAuthenticated } = useNhostAuth();
-  const actionData = useActionData();
+  //   const actionData = useActionData();
   const transition = useTransition();
 
   const errorInputClassNames =
@@ -74,25 +82,27 @@ export default function SignIn() {
   const passwordClassNames =
     "appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm";
 
-  const inputClassNames = classNames({
-    [errorInputClassNames]: actionData?.errorMessage,
-    [defaultInputClassNames]: !actionData?.errorMessage,
-  });
+  //   const inputClassNames = classNames({
+  //     [errorInputClassNames]: actionData?.errorMessage,
+  //     [defaultInputClassNames]: !actionData?.errorMessage,
+  //   });
 
-  useEffect(() => {}, [isLoading, isAuthenticated, actionData]);
+  //   useEffect(() => {}, [isLoading, isAuthenticated, actionData]);
   return (
     <>
       <div className="h-screen flex">
         <div className="flex-1 flex flex-col justify-center py-12 px-4 sm:px-6 lg:flex-none lg:px-20 xl:px-24">
           <div className="mx-auto w-full max-w-sm lg:w-96">
-            <h2 className=" text-3xl font-extrabold text-gray-900">
+            <h2 className=" text-3xl font-extrabold text-gray-900 mb-6">
               Sign in to your account
             </h2>
             <div className="mt-8">
               <div className="mt-6">
-                <Form method="post" className="space-y-6">
+                <Tabs />
+                <Outlet />
+                {/* <Form method="post" className="space-y-6">
                   {/* Email Field */}
-                  <div>
+                {/* <div>
                     <div className="mt-1 relative rounded-md shadow-sm">
                       <label
                         htmlFor="email"
@@ -124,9 +134,9 @@ export default function SignIn() {
                         {actionData?.errorMessage}
                       </p>
                     )}
-                  </div>
-                  {/* Password Field */}
-                  <div className="space-y-1">
+                  </div> */}
+                {/* Password Field */}
+                {/* <div className="space-y-1">
                     <label
                       htmlFor="password"
                       className="block text-sm font-medium text-gray-700"
@@ -159,35 +169,9 @@ export default function SignIn() {
                         </p>
                       )}
                     </div>
-                  </div>
+                  </div> */}
 
-                  <div className="flex items-center justify-between">
-                    <div className="flex items-center">
-                      <input
-                        id="remember-me"
-                        name="remember-me"
-                        type="checkbox"
-                        className="h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-gray-300 rounded"
-                      />
-                      <label
-                        htmlFor="remember-me"
-                        className="ml-2 block text-sm text-gray-900"
-                      >
-                        Remember me
-                      </label>
-                    </div>
-
-                    <div className="text-sm">
-                      <a
-                        href="#"
-                        className="font-medium text-indigo-600 hover:text-indigo-500"
-                      >
-                        Forgot your password?
-                      </a>
-                    </div>
-                  </div>
-
-                  <div>
+                {/* <div>
                     <button
                       disabled={transition.state === "submitting"}
                       type="submit"
@@ -197,8 +181,8 @@ export default function SignIn() {
                         ? "Signing in..."
                         : "Sign In"}
                     </button>
-                  </div>
-                </Form>
+                  </div> */}
+                {/* </Form> */}
               </div>
             </div>
           </div>
