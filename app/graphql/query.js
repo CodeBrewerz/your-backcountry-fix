@@ -176,3 +176,63 @@ export const Products_By_Category_Name = {
     imageSrc: product?.product_images[0]?.url,
   }),
 };
+
+export const Product_By_Product_Name = gql`
+  query Product_By_Product_Name($productName: String!) {
+    Product(where: { Name: { _eq: $productName } }) {
+      id
+      Description
+      Name
+      Price
+      StripePrice
+      ProductHighlights {
+        Highlight
+      }
+      Reviews {
+        rating
+        user {
+          displayName
+          avatarUrl
+        }
+        content
+        title
+        updated_at
+      }
+      product_images {
+        url
+      }
+    }
+  }
+`;
+
+export const Related_Products = {
+  q: gql`
+    query Related_Products(
+      $categoryName: String!
+      $productNameToExclude: String!
+    ) {
+      RelatedProducts: Product(
+        where: {
+          product_categories_one_to_many: {
+            Category: { name: { _eq: $categoryName } }
+          }
+          Name: { _neq: $productNameToExclude }
+        }
+      ) {
+        Price
+        Name
+        product_images(limit: 1) {
+          url
+        }
+      }
+    }
+  `,
+  mapper: (rp, index) => ({
+    id: index,
+    name: rp.Name,
+    price: rp.Price,
+    imageSrc: rp.product_images[0].url,
+    imageAlt: rp.Name,
+    href: `../products/${intercalate(rp.Name)}`,
+  }),
+};
