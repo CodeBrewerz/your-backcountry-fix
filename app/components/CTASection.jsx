@@ -1,3 +1,5 @@
+import { Link } from "remix";
+
 const CTASection = ({ data }) => {
   return (
     <section aria-labelledby="sale-heading">
@@ -12,10 +14,14 @@ const CTASection = ({ data }) => {
                 >
                   {/* TODO */}
                 </h2>
+
                 <div className="mt-6 text-base">
-                  <a href="#" className="font-semibold text-white">
+                  <Link
+                    to="/categories/cooking/products"
+                    className="font-semibold text-white"
+                  >
                     Shop the sale<span aria-hidden="true"> &rarr;</span>
-                  </a>
+                  </Link>
                 </div>
               </div>
 
@@ -25,7 +31,7 @@ const CTASection = ({ data }) => {
                     <div className="flex-shrink-0">
                       <img
                         className="h-64 w-64 rounded-lg object-cover md:h-72 md:w-72"
-                        src="/home-page-03-category-01.jpg"
+                        src="https://images.unsplash.com/photo-1524137224090-114639b09a84?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MXx8Y2FtcGluZyUyMGZvb2R8ZW58MHx8MHx8&auto=format&fit=crop&w=800&q=60"
                         alt=""
                       />
                     </div>
@@ -33,7 +39,7 @@ const CTASection = ({ data }) => {
                     <div className="mt-6 flex-shrink-0 sm:mt-0">
                       <img
                         className="h-64 w-64 rounded-lg object-cover md:h-72 md:w-72"
-                        src="/home-page-03-category-02.jpg"
+                        src="https://images.unsplash.com/photo-1530541930197-ff16ac917b0e?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MjJ8fGNhbXBpbmclMjBmb29kfGVufDB8fDB8fA%3D%3D&auto=format&fit=crop&w=800&q=60"
                         alt=""
                       />
                     </div>
@@ -42,7 +48,7 @@ const CTASection = ({ data }) => {
                     <div className="flex-shrink-0">
                       <img
                         className="h-64 w-64 rounded-lg object-cover md:h-72 md:w-72"
-                        src="/home-page-03-favorite-01.jpg"
+                        src="https://images.unsplash.com/photo-1510672981848-a1c4f1cb5ccf?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8OHx8Y2FtcGluZyUyMGZvb2R8ZW58MHx8MHx8&auto=format&fit=crop&w=800&q=60"
                         alt=""
                       />
                     </div>
@@ -50,7 +56,7 @@ const CTASection = ({ data }) => {
                     <div className="mt-6 flex-shrink-0 sm:mt-0">
                       <img
                         className="h-64 w-64 rounded-lg object-cover md:h-72 md:w-72"
-                        src="/home-page-03-favorite-02.jpg"
+                        src="https://images.unsplash.com/photo-1516483954662-1bee87353427?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTF8fGNhbXBpbmclMjBmb29kfGVufDB8fDB8fA%3D%3D&auto=format&fit=crop&w=800&q=60"
                         alt=""
                       />
                     </div>
@@ -59,7 +65,7 @@ const CTASection = ({ data }) => {
                     <div className="flex-shrink-0">
                       <img
                         className="h-64 w-64 rounded-lg object-cover md:h-72 md:w-72"
-                        src="/home-page-03-category-01.jpg"
+                        src="https://images.unsplash.com/photo-1536002774015-985416d90cb9?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTV8fGNhbXBpbmclMjBmb29kfGVufDB8fDB8fA%3D%3D&auto=format&fit=crop&w=800&q=60"
                         alt=""
                       />
                     </div>
@@ -67,7 +73,7 @@ const CTASection = ({ data }) => {
                     <div className="mt-6 flex-shrink-0 sm:mt-0">
                       <img
                         className="h-64 w-64 rounded-lg object-cover md:h-72 md:w-72"
-                        src="/home-page-03-category-02.jpg"
+                        src="https://images.unsplash.com/photo-1554959476-11cb92f3d610?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MzN8fGNhbXBpbmclMjBmb29kfGVufDB8fDB8fA%3D%3D&auto=format&fit=crop&w=800&q=60"
                         alt=""
                       />
                     </div>

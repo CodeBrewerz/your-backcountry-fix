@@ -75,7 +75,7 @@ export default function App() {
             <ScrollRestoration />
             <Scripts />
             {process.env.NODE_ENV === "development" && <LiveReload />}
-            <Footer />
+            {/* <Footer /> */}
           </div>
         </NhostAuthProvider>
       </body>

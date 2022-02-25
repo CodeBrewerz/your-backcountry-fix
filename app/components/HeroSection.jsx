@@ -1,3 +1,5 @@
+import { Link } from "remix";
+
 const HeroSection = () => {
   return (
     <div className="relative overflow-hidden pt-16 pb-80 sm:pt-24 sm:pb-40 lg:pt-40 lg:pb-48">
@@ -6,9 +8,6 @@ const HeroSection = () => {
           <h1 className="text-4xl font font-extrabold tracking-tight text-gray-900 sm:text-6xl">
             Let's get ready for your next adventure
           </h1>
-          <p className="mt-4 text-xl text-gray-500">
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-          </p>
         </div>
         <div>
           <div className="mt-10">
@@ -77,12 +76,12 @@ const HeroSection = () => {
               </div>
             </div>
 
-            <a
-              href="#"
+            <Link
+              to="/categories"
               className="inline-block text-center bg-indigo-600 border border-transparent rounded-md py-3 px-8 font-medium text-white hover:bg-indigo-700"
             >
               Shop Collection
-            </a>
+            </Link>
           </div>
         </div>
       </div>

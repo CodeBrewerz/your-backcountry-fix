@@ -3,6 +3,7 @@ import { Popover, Transition } from "@headlessui/react";
 import { Fragment } from "react";
 import { Link } from "remix";
 import ShoppingCart from "./ShoppingCartPopover";
+import { useNhostAuth } from "@nhost/react-auth";
 
 const navigation = [
   { name: "Camping", href: "/categories/camping/products" },
@@ -12,6 +13,9 @@ const navigation = [
 ];
 
 const Header = ({ products }) => {
+  const res = useNhostAuth();
+  console.log(res, "user");
+
   return (
     <header className="relative bg-white">
       <nav aria-label="Top" className="max-w-7xl mx-auto sm:px-6 lg:px-8">
@@ -22,7 +26,11 @@ const Header = ({ products }) => {
               <Link to="/" className="button text-sm font-medium pr-4">
                 <span className="sr-only">Your Backcountry Fix</span>
                 {/* TODO: Add Logo */}
-                <img className="h-8 w-auto" src="" alt="" />
+                <img
+                  className="h-20 w-auto"
+                  src="https://i.fbcd.co/products/original/69c327e8ed39e3818046ca61118aa0941cf4979861d4cc8ffec33a1fb2eda19c.jpg"
+                  alt=""
+                />
               </Link>
             </div>
 
@@ -41,15 +49,13 @@ const Header = ({ products }) => {
             </div>
 
             <div className="flex-1 flex items-center justify-end">
-              <Link to="/sign-in" className="button text-sm font-medium pr-4">
-                Sign In
-              </Link>
               <Link
                 to="/sign-in"
-                className="button text-sm font-medium border-l-2 pl-4"
+                className="button text-gray-700 text-sm font-medium pr-4"
               >
-                Sign Up
+                Login
               </Link>
+
               <Popover className="ml-4 flow-root text-sm lg:relative lg:ml-8">
                 <Popover.Button className="group -m-2 p-2 flex items-center">
                   <ShoppingBagIcon

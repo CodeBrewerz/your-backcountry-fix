@@ -7,7 +7,7 @@ const FilterPopups = ({ filters }) => {
   const fetcher = useFetcher();
   const submit = useSubmit();
   return (
-    <div className="hidden sm:block">
+    <div className="hidden sm:block ">
       <div className="flow-root">
         <Popover.Group className="-mx-4 flex items-center divide-x divide-gray-200">
           {/* form input fields get changed on click of popover,

@@ -1,5 +1,5 @@
 import { StarIcon } from "@heroicons/react/solid";
-
+import { classNames } from "../utils/helper-functions";
 const ProductReviewsSection = ({ reviews }) => {
   return (
     <section aria-labelledby="reviews-heading" className="mt-16 sm:mt-24">

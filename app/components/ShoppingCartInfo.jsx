@@ -72,17 +72,10 @@ const ShoppingCartInfo = ({ product, productIdx }) => {
         </div>
 
         <p className="mt-4 flex text-sm text-gray-700 space-x-2">
-          {product.inStock ? (
-            <CheckIcon
-              className="flex-shrink-0 h-5 w-5 text-green-500"
-              aria-hidden="true"
-            />
-          ) : (
-            <ClockIcon
-              className="flex-shrink-0 h-5 w-5 text-gray-300"
-              aria-hidden="true"
-            />
-          )}
+          <CheckIcon
+            className="flex-shrink-0 h-5 w-5 text-green-500"
+            aria-hidden="true"
+          />
         </p>
       </div>
     </li>

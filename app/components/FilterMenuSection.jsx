@@ -17,7 +17,8 @@ const FilterMenuSection = ({ filters, setMobileFiltersOpen }) => {
   return (
     <div className="relative z-10 bg-white border-b border-gray-200 pb-4">
       <div className="max-w-7xl mx-auto px-4 flex items-center justify-between sm:px-6 lg:px-8">
-        <Menu as="div" className="relative inline-block text-left">
+        {/* TODO : Add Sorting Functionality */}
+        {/* <Menu as="div" className="relative inline-block text-left">
           <div>
             <Menu.Button className="group inline-flex justify-center text-sm font-medium text-gray-700 hover:text-gray-900">
               Sort
@@ -60,7 +61,7 @@ const FilterMenuSection = ({ filters, setMobileFiltersOpen }) => {
               </div>
             </Menu.Items>
           </Transition>
-        </Menu>
+        </Menu> */}
 
         <button
           type="button"
