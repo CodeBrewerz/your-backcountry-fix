@@ -236,3 +236,178 @@ export const Related_Products = {
     href: `../products/${intercalate(rp.Name)}`,
   }),
 };
+
+
+export const getAllFeatures = gql`
+  query features {
+    Feature {
+      Name
+      id
+    }
+  }
+`;
+
+export const insertProduct = gql`
+  mutation insertProduct(
+    $Description: String!
+    $Name: String!
+    $Price: money!
+  ) {
+    insert_Product(
+      objects: { Description: $Description, Name: $Name, Price: $Price }
+    ) {
+      returning {
+        id
+        Name
+      }
+    }
+  }
+`;
+
+export const insertProductHighlights = gql`
+  mutation insertProductHighlight(
+    $objects: [ProductHighlights_insert_input!]!
+  ) {
+    insert_ProductHighlights(objects: $objects) {
+      returning {
+        id
+      }
+    }
+  }
+`;
+
+export const insertProductImages = gql`
+  mutation insertProductImages($objects: [product_image_insert_input!]!) {
+    insert_product_image(objects: $objects) {
+      returning {
+        id
+      }
+    }
+  }
+`;
+
+export const insertProductCategories = gql`
+  mutation insertProductCategories(
+    $objects: [product_category_insert_input!]!
+  ) {
+    insert_product_category(objects: $objects) {
+      returning {
+        category_id
+      }
+    }
+  }
+`;
+
+export const insertProductFeatures = gql`
+  mutation insertProductFeatures($objects: [ProductFeature_insert_input!]!) {
+    insert_ProductFeature(objects: $objects) {
+      returning {
+        id
+        featureId
+      }
+    }
+  }
+`;
+
+export const insertProductFeatureValues = gql`
+  mutation insertProductFeatureValues(
+    $objects: [ProductFeatureValue_insert_input!]!
+  ) {
+    insert_ProductFeatureValue(objects: $objects) {
+      returning {
+        id
+      }
+    }
+  }
+`;
+
+export const getAllFeatureValues = gql`
+  query features {
+    FeatureValue {
+      featureId
+      id
+      value
+    }
+  }
+`;
+
+export const Products_By_Category_Name = {
+  q: gql`
+    query Products_By_Category_Name($categoryName: String!) {
+      Product(
+        where: {
+          product_categories_one_to_many: {
+            Category: { name: { _eq: $categoryName } }
+          }
+        }
+      ) {
+        Price
+        Name
+        product_images(limit: 1) {
+          url
+        }
+        ProductFeatures {
+          Feature {
+            Name
+          }
+          ProductFeatureValues {
+            FeatureValue {
+              value
+            }
+          }
+        }
+      }
+    }
+  `,
+  mapper: (product, idx) => ({
+    id: idx,
+    name: product?.Name,
+    href: "products/" + intercalate(product?.Name),
+    price: product?.Price,
+    imageSrc: product?.product_images[0]?.url,
+  }),
+};
+
+export const productMapper = (product, idx) => ({
+  id: idx,
+  name: product?.Name,
+  href: "products/" + intercalate(product?.Name),
+  price: product?.Price,
+  imageSrc: product?.product_images[0]?.url,
+});
+
+const getWhereClause = (featureName, featureValues) =>
+  `ProductFeatures: {
+    Feature: { Name: { _eq: "${featureName}" } }
+    ProductFeatureValues: {
+      FeatureValue: { value: { _in: ${JSON.stringify(featureValues)} } }
+    }
+  }`;
+
+export const GetProductsByFeature = {
+  q: gql`
+    query GetProductsByFeature(
+      $featureName: String!
+      $featureValue: [String!]!
+    ) {
+      Product(
+        where: {
+          ProductFeatures: {
+            Feature: { Name: { _eq: $featureName } }
+            ProductFeatureValues: {
+              FeatureValue: { value: { _in: $featureValue } }
+            }
+          }
+        }
+      ) {
+        id
+        Name
+        Price
+        product_images(limit: 1) {
+          url
+        }
+      }
+    }
+  `,
+  mapper: productMapper,
+};
